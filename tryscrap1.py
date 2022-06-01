@@ -1,17 +1,1 @@
-#pip install beautifulsoup4 lxml
-from bs4 import BeautifulSoup
-
-with open ("blank/index2.html") as file:
-    src = file.read()
-
-soup = BeautifulSoup(src, "lxml")
-
-# title = soup.title
-# print(title.text)
-
-# .find(...) - the first object with name ... from (...) , but .find_all() - all objects with name ... adds to list.
-
-page_h1 = soup.find_all("h1")
-
-for item in page_h1:
-    print(item.text)
+#pip install beautifulsoup4 lxmlimport refrom bs4 import BeautifulSoupwith open("blank/index2.html", encoding="utf-8") as file:    src = file.read()soup = BeautifulSoup(src, "lxml")#soup.find("...") - one elem with tag "...";  soup.find_all() - list of all elems with tag "..."# list_a = soup.find_all("a")# for elem in list_a:#     print(elem)#В тэге div, которых много в html, мы можем найти класс имя_класса#и вывести либо переменная_поиска (как блок кода), либо переменная_поиска.text (текст в этом блоке)# # post_title = soup.find("div", class_="post__title")# print(post_title.text.strip())# .text.strip() - без пробелов текст. пробелы появились из-за удаления тэгов#Поиск в одном тэге нужногоspan_user_city = soup.find("div", {"class": "user__city"}).find_all("span")native_city = span_user_city[1].textprint(native_city)#<div> -> class "social__networks" -> <ul> -> all <a>#.get("...") - получить содержимое по атрибуту "...".#или elem["..."] - тоже передаем атрибут.links_list = soup.find("div", {"class": "social__networks"}).find("ul").find_all("a")for elem in links_list:    link_text = elem.text    link = elem.get("href")    print(f"{link_text}: {link}")# Поиск родителя (вернет блок кода) для класса "post__date".# В .find_parent(...) можно указать (тэг, класс родителя)ь  , который нужен из определенных выше.# post_divs = soup.find("div", class_="post__date").find_parent()# print(post_divs)#Ищем следующий элемент - .find_next() ; .previous_element() - предыдущий.# next_for_city_span = soup.find(class_="city__label").find_next().text# print(next_for_city_span)#.find_next_sibling() - ищет следующий блок; .find_previous_sibling() - предыдущий блок.#.find_all(text=re.compile("([Оо]дежда)")) - найдет информацию в список, содержающую слово "одежда" в двух регистрахinfo_clothes = soup.find_all(text=re.compile("[Оо]дежда"))print(info_clothes)
